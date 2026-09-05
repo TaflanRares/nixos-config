@@ -1,0 +1,6 @@
+[submodule "config/nvim-config"]
+	path = config/nvim-config
+	url = git@github.com:TaflanRares/nvim-config.git
+[submodule "config/hypr-config"]
+	path = config/hypr-config
+	url = git@github.com:TaflanRares/hypr-config.git

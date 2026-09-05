@@ -1,0 +1,14 @@
+# Nix build artifacts
+result
+result-*
+
+# Direnv
+.direnv/
+
+# Editor swap/temp files
+*.swp
+*.swo
+*~
+
+# OS cruft
+.DS_Store
