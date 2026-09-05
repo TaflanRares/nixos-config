@@ -1,5 +1,5 @@
 {
   imports = [
-    ide.nix
+    ./ide.nix
   ];
 }

@@ -1,7 +1,7 @@
 {
   imports = [
+    ./devPackages
     ./usrPackages.nix
-    ./devPackages.nix
     ./usrTheme.nix
     ./noctalia.nix
   ];
