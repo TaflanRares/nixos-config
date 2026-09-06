@@ -1,7 +1,7 @@
 { config, pkgs, inputs, ... }:
 
 let
-  vscodeMarketplaceExtensions = inputs.nix-vscode-extensions.extensions.${pkgs.system};
+  vscodeMarketplaceExtensions = inputs.nix-vscode-extensions.extensions.${pkgs.stdenv.hostPlatform.system};
 in
 {
   programs.vscode = {

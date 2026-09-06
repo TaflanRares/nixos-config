@@ -12,3 +12,6 @@ result-*
 
 # OS cruft
 .DS_Store
+
+# Github
+.github/

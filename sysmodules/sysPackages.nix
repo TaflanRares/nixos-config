@@ -4,41 +4,51 @@
   programs.fish.enable = true;
 
   environment.systemPackages = with pkgs; [
+    # Core
     vim
     wget
-    kitty
+
+    # Wm
     waybar
     hyprlock
     hyprlauncher
-    # Screenshots
+
+    # Screenshot
     grim
-    # Cursors 
-    bibata-cursors
-    # Functionality
+    slurp
+
+    # Tools
     wl-clipboard
     brightnessctl
+
+    # Media
     pkgs.mpv
     pkgs.mpvpaper
     pkgs.feh
     imlib2
-    # Spoty
+
+    # Music
     spotify-player
-    # Utilities
+
+    # Utils
     ffmpeg
     libva-utils
     vdpauinfo
     pkgs.onlyoffice-desktopeditors
-    # File manager
+
+    # Files
     thunar
     thunar-volman
     thunar-archive-plugin
     tumbler
     ffmpegthumbnailer
-    # Archiving
+
+    # Archive
     zip
     unzip
     p7zip
-    # Nvidia / GPU
+
+    # Gpu
     nvtopPackages.nvidia
     mesa-demos
     vulkan-tools

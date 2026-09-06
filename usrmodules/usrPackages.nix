@@ -22,13 +22,7 @@ in
     # Secrets
     libsecret
     # Zen browser
-    inputs.zen-browser.packages.${pkgs.system}.default
-    # Dev
-    nodejs
-    gcc
-    cmake
-    gnumake
-    rustup
+    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     # Gaming
     protonup-ng
     mangohud
