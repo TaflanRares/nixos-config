@@ -61,15 +61,22 @@ in
 
   # Secrets
   programs.keepassxc = {
-    enable = true; 
+    enable = true;
     autostart = true;
     settings = {
-      # https://github.com/keepassxreboot/keepassxc/blob/develop/src/core/Config.cpp
       FdoSecrets.Enabled = true;
-      GUI.MinimizeOnClose = true;
+      SSHAgent = {
+        Enabled = true;
+        AuthSockOverride = "/run/user/1000/ssh-agent";
+      };
+      GUI = {
+        MinimizeOnClose = true;
+        ShowTrayIcon = true;
+        ApplicationTheme = "dark";
+      };
     };
   };
- 
+
   # btop resource manager
   programs.btop.enable = true;
 

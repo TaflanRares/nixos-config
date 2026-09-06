@@ -1,6 +1,7 @@
 { config, pkgs, inputs, ... }:
 
 {
+  # Home
   home.username = "rares";
   home.homeDirectory = "/home/rares";
   home.stateVersion = "26.05";
@@ -16,6 +17,9 @@
   xdg.autostart.enable = true;
   
   wayland.windowManager.hyprland.systemd.enable = false;
+
+  # Ssh
+  services.ssh-agent.enable = true;
 
   imports =
   [

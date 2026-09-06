@@ -8,6 +8,11 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    wireplumber.extraConfig."51-bluez-autoswitch" = {
+      "monitor.bluez.properties" = {
+        "bluez5.autoswitch-profile" = false;
+      };
+    };
   };
   hardware.bluetooth = {
     enable = true;

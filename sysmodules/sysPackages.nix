@@ -1,8 +1,6 @@
 { config, lib, pkgs, ...}:
 
 {
-  # System packages into configuration.nix
-  programs.firefox.enable = true;
   programs.fish.enable = true;
 
   environment.systemPackages = with pkgs; [
