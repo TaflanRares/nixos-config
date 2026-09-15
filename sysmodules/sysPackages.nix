@@ -17,9 +17,10 @@
     grim
     slurp
 
-    # Tools
+    # Functionalities
     wl-clipboard
     brightnessctl
+    usbutils
 
     # Media
     pkgs.mpv

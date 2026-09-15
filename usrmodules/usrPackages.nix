@@ -59,16 +59,54 @@ in
     autostart = true;
     settings = {
       FdoSecrets.Enabled = true;
+
       SSHAgent = {
         Enabled = true;
         AuthSockOverride = "/run/user/1000/ssh-agent";
       };
+  
+      Security = {
+        LockDatabaseIdle = true;
+        LockDatabaseIdleSeconds = 7200;
+
+        LockDatabaseScreenLock = true;
+        LockDatabaseMinimize = false;
+      };
+
+      General = {
+        MinimizeAfterUnlock = true;
+      };
+
       GUI = {
         MinimizeOnClose = true;
         ShowTrayIcon = true;
         ApplicationTheme = "dark";
       };
     };
+  };
+
+  # TUI file manager
+  programs.yazi = {
+    enable = true;
+    enableFishIntegration = true;
+
+    settings = {
+      manager = {
+        show_hidden = true;
+        sort_by = "natural";
+        sort_dir_first = true;
+      };
+    };
+  
+    # Plugins from nixpkgs's pkgs.yaziPlugins set:
+    plugins = {
+      inherit (pkgs.yaziPlugins) mount;
+      # add more as you find them
+    };
+
+    # Same mechanism for colorschemes:
+    flavors = { inherit (pkgs.yaziPlugins) nord; };
+    theme.flavor.dark = "nord";
   };
 
   # btop resource manager

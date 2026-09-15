@@ -16,6 +16,15 @@
 
   networking.hostName = "nixflake";
   networking.networkmanager.enable = true;
+
+  # Firewall 
+  networking.firewall = {
+    enable = true;
+    allowPing = false;
+    allowedTCPPorts = [ ];
+    allowedUDPPorts = [ ];
+  };
+
   time.timeZone = "Europe/Bucharest";
 
   # User account

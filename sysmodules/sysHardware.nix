@@ -25,6 +25,16 @@
   # Touchpad support
   services.libinput.enable = true;
 
+  # Storage volumes management
+  services.udisks2.enable = true;
+  services.gvfs.enable = true;
+
+  # udev rules for embedded tools
+  services.udev.packages = with pkgs; [
+    openocd
+    stlink
+  ];
+
   # Power support
   services.upower.enable = true;
 

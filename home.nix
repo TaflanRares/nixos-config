@@ -13,7 +13,7 @@
     name = "Bibata-Modern-Ice";
     size = 24;
   };
-
+  
   xdg.autostart.enable = true;
   
   wayland.windowManager.hyprland.systemd.enable = false;

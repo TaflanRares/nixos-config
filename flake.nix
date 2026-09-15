@@ -50,7 +50,9 @@
 					};
 				}
 			];
-
 		};
+    devShells."x86_64-linux" = import ./devshells {
+      pkgs = self.nixosConfigurations.nixflake.pkgs;
+    };
 	};
 }

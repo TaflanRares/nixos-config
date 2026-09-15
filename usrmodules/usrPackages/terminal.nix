@@ -28,7 +28,9 @@
     interactiveShellInit = ''
       # Greet w fastfetch
       set -g fish_greeting ""
-      fastfetch
+      if test "$TERM_PROGRAM" != "vscode"
+        fastfetch
+      end
     '';
 
     functions = {
@@ -76,4 +78,23 @@
       "*.swp"
     ];
   };
+
+  home.file = {
+  ".local/share/xfce4/helpers/custom-TerminalEmulator.desktop".text = ''
+    [Desktop Entry]
+    NoDisplay=true
+    Version=1.0
+    Encoding=UTF-8
+    Type=X-XFCE-Helper
+    X-XFCE-Category=TerminalEmulator
+    X-XFCE-CommandsWithParameter=kitty %s
+    X-XFCE-Commands=kitty
+    Icon=kitty
+    Name=kitty
+  '';
+
+  ".config/xfce4/helpers.rc".text = ''
+    TerminalEmulator=custom-TerminalEmulator
+  '';
+};
 }
