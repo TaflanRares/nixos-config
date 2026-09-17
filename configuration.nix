@@ -37,9 +37,8 @@
     shell = pkgs.fish;
   };
 
-  nixpkgs.config.allowUnfree = true;
+  # Flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   
   system.stateVersion = "26.05";
-
 }

@@ -12,8 +12,6 @@
     # Embedded
     gcc-arm-embedded
     openocd
-    stlink
-    stm32cubemx
 
     # Python
     python3

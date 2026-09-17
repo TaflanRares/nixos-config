@@ -5,21 +5,15 @@
     enable = true;
     # nixld, set up initially because of stm32-vscode-extension
     libraries = with pkgs; [
-      zlib
-      zstd
       stdenv.cc.cc
-      curl
+      zlib
       openssl
-      attr
-      libssh
-      bzip2
-      libxml2
-      acl
-      libsodium
-      util-linux
-      xz
-      systemd
+      curl
+      icu
+      expat
       libusb1
+      udev
+      systemd
     ];
   };
 }

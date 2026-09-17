@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ...}:
+{ inputs, config, lib, pkgs, ...}:
 
 {
   programs.fish.enable = true;
@@ -28,9 +28,6 @@
     pkgs.feh
     imlib2
 
-    # Music
-    spotify-player
-
     # Utils
     ffmpeg
     libva-utils
@@ -39,7 +36,6 @@
 
     # Files
     thunar
-    thunar-volman
     thunar-archive-plugin
     tumbler
     ffmpegthumbnailer
@@ -53,6 +49,9 @@
     nvtopPackages.nvidia
     mesa-demos
     vulkan-tools
+
+    # Spotify player
+    inputs.spotatui.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
 } 

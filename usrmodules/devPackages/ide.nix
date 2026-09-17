@@ -1,69 +1,45 @@
-{ config, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   vscodeMarketplaceExtensions = inputs.nix-vscode-extensions.extensions.${pkgs.stdenv.hostPlatform.system};
-  stm32cubemxWrapped = pkgs.writeShellScriptBin "stm32cubemx-wrapped" ''
-    set -eu
 
-    export XDG_CONFIG_HOME="''${XDG_CONFIG_HOME:-$HOME/.config}"
-    export XDG_CACHE_HOME="''${XDG_CACHE_HOME:-$HOME/.cache}"
-    export XDG_DATA_HOME="''${XDG_DATA_HOME:-$HOME/.local/share}"
-
-    export STM32CUBEMX_USER_DATA="$XDG_DATA_HOME/STM32CubeMX"
-
-    project_hint="$PWD"
-    for arg in "$@"; do
-      case "$arg" in
-        *.ioc)
-          project_hint="$(dirname "$arg")"
-          break
-          ;;
-      esac
-    done
-
-    workspace_id="$(printf '%s' "$project_hint" | sha256sum | cut -c1-16)"
-    export STM32CUBEMX_WORKSPACE="$XDG_DATA_HOME/STM32CubeMX/workspaces/$workspace_id"
-
-    mkdir -p \
-      "$STM32CUBEMX_USER_DATA" \
-      "$STM32CUBEMX_WORKSPACE" \
-      "$XDG_CACHE_HOME/stm32cubemx" \
-      "$XDG_CACHE_HOME/tmp" \
-      "$HOME/.stm32cubemx/thirdparties/db"
-
-    updater_xml="$HOME/.stm32cubemx/thirdparties/db/updaterThirdParties.xml"
-    if [ ! -e "$updater_xml" ]; then
-      cp ${pkgs.stm32cubemx}/opt/STM32CubeMX/db/plugins/updater/updaterThirdParties.xml "$updater_xml"
-      chmod u+w "$updater_xml"
-    fi
-
-    export JAVA_TOOL_OPTIONS="''${JAVA_TOOL_OPTIONS-} -Duser.home=$HOME -Djava.io.tmpdir=$XDG_CACHE_HOME/tmp"
-
-    exec ${pkgs.stm32cubemx}/bin/stm32cubemx "$@"
-  '';
+  unfreePkgs = import pkgs.path {
+    inherit (pkgs) system;
+    config.allowUnfree = true;
+  };
 in
 {
+
   programs.vscode = {
     enable = true;
     mutableExtensionsDir = false;
 
     profiles.default.extensions = with pkgs.vscode-extensions; [
-      ms-vscode.cpptools-extension-pack
-      marus25.cortex-debug
+      # Vimotions
       vscodevim.vim
+      # Markdown
       yzhang.markdown-all-in-one
+      # Lua
       sumneko.lua
-    ] ++ (with vscodeMarketplaceExtensions.vscode-marketplace; [
-      # Nix extension
-      bbenoist.nix
-      # STM32CubeIDE extensions
+
+    ] ++ (with unfreePkgs.vscode-extensions; [
+      # CPP MS (unfree)
+      ms-vscode.cpptools
+
+    ]) ++ (with vscodeMarketplaceExtensions.vscode-marketplace; [
+      # CPP MS
+      ms-vscode.cpptools-themes
+      ms-vscode.cpp-devtools
+      ms-vscode.cmake-tools
+      # Debugging
+      marus25.cortex-debug
       eclipse-cdt.memory-inspector
       eclipse-cdt.serial-monitor
       mcu-debug.debug-tracker-vscode
       mcu-debug.memory-view
       mcu-debug.rtos-views
       mcu-debug.peripheral-viewer
-      ms-vscode.cmake-tools
+      # STM32Cube
       stmicroelectronics.stm32cube-ide-core
       stmicroelectronics.stm32cube-ide-rtos
       stmicroelectronics.stm32cube-ide-registers
@@ -77,31 +53,26 @@ in
       stmicroelectronics.stm32cube-ide-debug-generic-gdbserver
       stmicroelectronics.stm32cube-ide-debug-stlink-gdbserver
       stmicroelectronics.stm32cube-ide-debug-jlink-gdbserver
-      # Cpp Include Guard extension
+      # Nix extension
+      bbenoist.nix
+      # CPP Include Guard extension
       akiramiyakoda.cppincludeguard
+      # Theme
+      enkia.tokyo-night
+
     ]);
 
     profiles.default.userSettings = {
+      # General settings
       "telemetry.telemetryLevel" = "off";
       "workbench.startupEditor" = "none";
-      "workbench.colorTheme" = "Dark Modern";
+      "workbench.colorTheme" = "Tokyo Night";
 
-      "stm32cube-ide-core.configuration.productSTM32CubeMX.executablePath" = "${stm32cubemxWrapped}/bin/stm32cubemx-wrapped";
-      "C_Cpp.default.compilerPath" = "${pkgs.gcc-arm-embedded}/bin/arm-none-eabi-gcc";
-      "cortex-debug.armToolchainPath" = "${pkgs.gcc-arm-embedded}/bin";
-      "cortex-debug.openocdPath" = "${pkgs.openocd}/bin/openocd";
-      "cmake.environment" = {
-        "PATH" = "${vscodeMarketplaceExtensions.vscode-marketplace.stmicroelectronics.stm32cube-ide-build-cmake}/share/vscode/extensions/stmicroelectronics.stm32cube-ide-build-cmake/resources/cube-cmake/linux/x86_64:${vscodeMarketplaceExtensions.vscode-marketplace.stmicroelectronics.stm32cube-ide-core}/share/vscode/extensions/stmicroelectronics.stm32cube-ide-core/resources/binaries/linux/x86_64:\${env.PATH}";
-      };
-      "stm32cube-ide-build-cmake.intellisense.enableAutomaticConfiguration" = false;
-      "stm32cube-ide-build-cmake.ignoreCubeProjectDiscovery" = true;
-      "stm32cube-ide-build-cmake.project-setup.incubationWebview" = false;
-      "stm32cube-ide-core.enableTelemetry" = false;
-      "stm32cube-ide-core.synchronizePdscRepositoriesOnStartup" = false;
-
+      # cppincludeguard extension
       "C/C++ Include Guard.Prefix" = "_";
       "C/C++ Include Guard.Suffix" = "_H_";
       
+      # vim extension
       "vim.useSystemClipboard" = true;
       "vim.leader" = "<space>";
       "vim.normalModeKeyBindingsNonRecursive" = [
@@ -141,6 +112,18 @@ in
         { before = ["<C-a>"]; after = ["<Esc>" "g" "g" "V" "G"]; }
         { before = ["<C-p>"]; after = ["<C-r>" "+"]; }
       ];
+
     };
   };
+
+
+  home.activation.vscodeMutableSettings = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    target="$HOME/.config/Code/User/settings.json"
+    if [ -L "$target" ]; then
+      real=$(readlink -f "$target")
+      rm "$target"
+      cp "$real" "$target"
+      chmod u+w "$target"
+    fi
+  '';  
 }
