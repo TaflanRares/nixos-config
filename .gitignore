@@ -14,4 +14,6 @@ result-*
 .DS_Store
 
 # Github
-.github/
+.github/*
+!.github/workflows/
+!.github/workflows/nixos.yaml

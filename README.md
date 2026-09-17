@@ -14,10 +14,11 @@ My personal NixOS configuration, built with **Nix Flakes** and **Home Manager**.
 ├── config/          # Symlinked standalone config files
 │ ├── hypr-config/   # Hyprland configuration
 │ └── nvim-config/   # Neovim configuration
+├── devshells/       # Development shells
 ├── sysmodules/      # Core system-level modules
-└── usrmodules/      # User-level modules
-├── devPackages/     # Development & programming packages
-└── usrPackages/     # General user applications
+└── usrmodules/      # User-level modules using home manager
+  ├── devPackages/   # Development & programming packages
+  └── usrPackages/   # General user applications
 ```
 
 ⚠️ This config is tailored to my hardware/setup
