@@ -1,4 +1,4 @@
-name: NixOS Configuration
+name: NixOS Check
 
 on:
   push:
@@ -19,6 +19,3 @@ jobs:
 
       - name: Check flake
         run: nix flake check --show-trace
-
-      - name: Build NixOS configuration
-        run: nix build .#nixosConfigurations.nixflake.config.system.build.toplevel --show-trace

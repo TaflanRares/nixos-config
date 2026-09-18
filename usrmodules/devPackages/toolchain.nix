@@ -13,16 +13,26 @@
     gcc-arm-embedded
     openocd
 
-    # Python
-    python3
-    python3Packages.pip
-    python3Packages.virtualenv
+    # Python & Docs (Unified)
+    (python3.withPackages (ps: with ps; [
+      pip
+      virtualenv
+      # docs
+      sphinx
+      breathe
+      sphinx-rtd-theme
+      sphinx-autobuild
+    ]))
     uv
+
+    # Doxygen (docs)
+    doxygen
 
     # Javascript
     nodejs
 
     # Rust
     rustup
+
   ];
 }
