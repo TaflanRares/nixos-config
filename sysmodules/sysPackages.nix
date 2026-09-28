@@ -52,6 +52,9 @@
 
     # Spotify player
     inputs.spotatui.packages.${pkgs.stdenv.hostPlatform.system}.default
+
+    # Connection
+    picocom
   ];
 
 } 

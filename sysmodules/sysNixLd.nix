@@ -3,10 +3,14 @@
 {
   programs.nix-ld = {
     enable = true;
-    # nixld, set up initially because of stm32-vscode-extension
+    # nix-ld, set up for vsc and stm32cube
     libraries = with pkgs; [
       stdenv.cc.cc
+      stdenv.cc.cc.lib
       zlib
+      zstd
+      brotli
+      glib
       openssl
       curl
       icu
@@ -14,6 +18,9 @@
       libusb1
       udev
       systemd
+      libkrb5
+      pcsclite
+      libx11
     ];
   };
 }

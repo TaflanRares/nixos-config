@@ -14,25 +14,33 @@ in
   # User-specific packages   
   home.packages = with pkgs; [
     # Utils
-    nixpkgs-fmt
-    neovim
-    ripgrep
-    nil
     yt-dlp
+    nix-tree
+    nixpkgs-fmt
+
     # Secrets
     libsecret
+
     # Zen browser
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+
     # Gaming
     protonup-ng
     mangohud
     prismlauncher
+
   ];
 
   imports =
   [
     ./usrPackages
   ];
+
+  programs.neovim = {
+    enable = true;
+    sideloadInitLua = true;
+    plugins = with pkgs.vimPlugins; [ telescope-nvim plenary-nvim ];
+  };
 
   programs.obs-studio = {
     enable = true;

@@ -13,6 +13,7 @@
     efi.canTouchEfiVariables = true;
     timeout = 0;
   };
+  boot.kernelModules = [ "can" "can_raw" "slcan" ];
 
   networking.hostName = "nixflake";
   networking.networkmanager.enable = true;
@@ -30,7 +31,7 @@
   # User account
   users.users.rares = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "dialout" ];
     packages = with pkgs; [
       tree
     ];
