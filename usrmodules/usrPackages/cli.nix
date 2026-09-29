@@ -34,7 +34,10 @@
   };
 
   # cd
-  programs.zoxide.enable = true;
+  programs.zoxide = {
+    enable = true;
+    options = [ "--cmd" "cd" ];
+  };
 
   home.packages = with pkgs; [
     jq

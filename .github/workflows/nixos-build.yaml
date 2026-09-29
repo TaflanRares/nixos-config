@@ -23,5 +23,5 @@ jobs:
       - name: Setup Nix cache
         uses: DeterminateSystems/magic-nix-cache-action@main
 
-      - name: Build NixOS configuration
-        run: nix build .#nixosConfigurations.nixflake.config.system.build.toplevel --show-trace
+      - name: Build NixOS configuration (CI variant)
+        run: nix build .#nixosConfigurations.nixflake-ci.config.system.build.toplevel --show-trace

@@ -68,6 +68,13 @@
 				}
 			];
 		};
+
+    nixosConfigurations.nixflake-ci = self.nixosConfigurations.nixflake.extendModules {
+      modules = [
+        { home-manager.users.rares.custom.stm32.enable = false; }
+      ];
+    };
+
     devShells."x86_64-linux" = import ./devshells {
       pkgs = self.nixosConfigurations.nixflake.pkgs;
     };

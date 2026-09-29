@@ -22,3 +22,10 @@ My personal NixOS configuration, built with **Nix Flakes** and **Home Manager**.
 ```
 
 ⚠️ This config is tailored to my hardware/setup
+
+## Credits
+
+Special thanks to:
+
+* [MarcelRobitaille](https://github.com/MarcelRobitaille) for the **STM32CubeProgrammer** fixes.
+* [MachXNU](https://github.com/MachXNU) for the **STM32CubeMX** fixes.

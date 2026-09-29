@@ -37,6 +37,7 @@
 
   # Power support
   services.upower.enable = true;
+  services.power-profiles-daemon.enable = true;
 
   # SSD trim
   services.fstrim.enable = true;

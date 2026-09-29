@@ -52,7 +52,6 @@
 
     shellAliases = {
       icat = "kitty +kitten icat";
-      nixrebuild = "nixos-rebuild switch --flake ~/dotfiles-nix#nixflake";
     };
   };
 
@@ -76,6 +75,23 @@
     ignores = [
       "*~"
       "*.swp"
+    ];
+  };
+
+  # Git dif
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+  };
+
+  # Git tli
+  programs.lazygit = {
+    enable = true;
+    settings.git.pagers = [
+    {
+      colorArg = "always";
+      pager = "delta --dark --paging=never";
+    }
     ];
   };
 

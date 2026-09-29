@@ -3,6 +3,16 @@
 {
   programs.fish.enable = true;
 
+  # Nix builder
+  programs.nh = {
+    enable = true;
+    flake = "/home/rares/dotfiles-nix";
+    clean = {
+      enable = true;
+      extraArgs = "--keep-since 4d --keep 3";
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     # Core
     vim
