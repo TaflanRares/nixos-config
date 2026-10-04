@@ -38,6 +38,13 @@
     shell = pkgs.fish;
   };
 
+  # Build dir
+  nix.settings.build-dir = "/home/nix-build";
+
+  systemd.tmpfiles.rules = [
+    "d /home/nix-build 0755 root root -"
+  ];
+
   # Flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   
