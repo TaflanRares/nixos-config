@@ -6,5 +6,6 @@
     ./sysBoot.nix
     ./sysUdev.nix
     ./desktop.nix
+    ./virtualisation.nix
   ];
 }

@@ -4,7 +4,7 @@ let
   vscodeMarketplaceExtensions = inputs.nix-vscode-extensions.extensions.${pkgs.stdenv.hostPlatform.system};
 
   unfreePkgs = import pkgs.path {
-    inherit (pkgs) system;
+    inherit (pkgs.stdenv.hostPlatform) system;
     config.allowUnfree = true;
   };
 in
@@ -31,6 +31,7 @@ in
       ms-vscode.cpptools-themes
       ms-vscode.cpp-devtools
       ms-vscode.cmake-tools
+
       # Debugging
       marus25.cortex-debug
       eclipse-cdt.memory-inspector
@@ -39,6 +40,7 @@ in
       mcu-debug.memory-view
       mcu-debug.rtos-views
       mcu-debug.peripheral-viewer
+
       # STM32Cube
       stmicroelectronics.stm32cube-ide-core
       stmicroelectronics.stm32cube-ide-rtos
@@ -53,10 +55,13 @@ in
       stmicroelectronics.stm32cube-ide-debug-generic-gdbserver
       stmicroelectronics.stm32cube-ide-debug-stlink-gdbserver
       stmicroelectronics.stm32cube-ide-debug-jlink-gdbserver
+
       # Nix extension
       bbenoist.nix
+
       # CPP Include Guard extension
       akiramiyakoda.cppincludeguard
+
       # Theme
       enkia.tokyo-night
 

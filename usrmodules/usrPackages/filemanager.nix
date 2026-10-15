@@ -2,6 +2,11 @@
 
 {
 
+  # Special user dirs (documents/desktop/etc)
+  xdg.userDirs = {
+    enable = true;
+  };
+
   # Automount
   services.udiskie = {
     enable = true;

@@ -1,6 +1,6 @@
 {
   imports = [
-    ./ide.nix
+    ./vscode.nix
     ./toolchain.nix
     ./stm32packages.nix
   ];

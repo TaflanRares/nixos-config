@@ -268,10 +268,7 @@
       theme = {
         source = "community";
         community_palette = "Vesper";
-        custom_palette = "AllBlack";
-        builtin = "Catppuccin";
         mode = "dark";
-        wallpaper_scheme = "m3-content";
       };
 
       # Widgets

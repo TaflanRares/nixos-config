@@ -24,7 +24,7 @@
   };
  
   services.greetd.enable = true;security.polkit.enable = true;
-  programs.noctalia-greeter = {
+  services.displayManager.noctalia-greeter = {
     enable = true;
     settings = {
       session.default = "Hyprland (uwsm-managed)";
