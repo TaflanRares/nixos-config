@@ -34,6 +34,7 @@
     extraGroups = [
       "wheel"
       "dialout"
+      "libvirtd"
     ];
     packages = with pkgs; [
       tree
@@ -47,27 +48,6 @@
   systemd.tmpfiles.rules = [
     "d /home/nix-build 0755 root root -"
   ];
-
-  virtualisation.docker = {
-    enable = true;
-    daemon.settings.data-root = "/home/docker";
-  };
-
-  virtualisation.oci-containers = {
-    backend = "docker";
-    containers.oracle-xe = {
-      image = "gvenzl/oracle-xe:21-slim";
-      ports = [ "127.0.0.1:1521:1521" ];
-      # ORACLE_PASSWORD=...
-      environmentFiles = [ "/home/rares/.secrets/oracle-xe.env" ];
-      volumes = [ "oracle-xe-data:/opt/oracle/oradata" ];
-      autoStart = false;
-    };
-  };
-
-  virtualisation.podman = {
-    enable = true;
-  };
 
   environment.systemPackages = [ pkgs.distrobox ];
 

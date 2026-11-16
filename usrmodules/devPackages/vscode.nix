@@ -131,4 +131,6 @@ in
       chmod u+w "$target"
     fi
   '';  
+
+  home.file."${config.xdg.configHome}/Code/User/settings.json".force = true;
 }

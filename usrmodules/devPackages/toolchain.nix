@@ -36,6 +36,8 @@
       breathe
       sphinx-rtd-theme
       sphinx-autobuild
+      mkdocs
+      mkdocs-material
     ]))
     uv
 

@@ -9,6 +9,7 @@
     home.packages = [
       (pkgs.callPackage ./stm32cubeprog.nix {})
       (pkgs.callPackage ./stm32cubemx.nix {})
+      (pkgs.callPackage ./stm32cubemx2.nix {})
     ];
   };
 }
