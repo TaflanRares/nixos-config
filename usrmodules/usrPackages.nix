@@ -20,15 +20,14 @@ in
 
     # Secrets
     libsecret
-
-    # Zen browser
+  ] ++ lib.optionals (!config.custom.minimalBuild.enable) [
+    # Large imported packages for full profile only.
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # Gaming
     protonup-ng
     mangohud
     prismlauncher
-
   ];
 
   imports =
@@ -42,6 +41,7 @@ in
     plugins = with pkgs.vimPlugins; [ telescope-nvim plenary-nvim ];
   };
 
+  /*
   programs.obs-studio = {
     enable = true;
 
@@ -60,6 +60,7 @@ in
       obs-vkcapture
     ];
   };
+  */
 
   # Secrets
   programs.keepassxc = {

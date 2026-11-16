@@ -71,7 +71,10 @@
 
     nixosConfigurations.nixflake-ci = self.nixosConfigurations.nixflake.extendModules {
       modules = [
-        { home-manager.users.rares.custom.stm32.enable = false; }
+        {
+          custom.minimalBuild.enable = true;
+          home-manager.users.rares.custom.minimalBuild.enable = true;
+        }
       ];
     };
 

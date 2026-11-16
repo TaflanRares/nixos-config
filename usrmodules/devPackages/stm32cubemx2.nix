@@ -82,7 +82,7 @@ stdenv.mkDerivation {
 
   src = requireFile {
     name = "stm32cubemx2-${version}-X64-Linux-installer";
-    sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+    sha256 = "sha256-roYVkIIclYY/BMHnNhm9BOOyfomtie+TEpztNT3gvt0=";
     url = "https://www.st.com/en/development-tools/stm32cubemx2.html#get-software";
   };
 

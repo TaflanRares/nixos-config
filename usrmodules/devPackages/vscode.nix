@@ -9,8 +9,8 @@ let
   };
 in
 {
-
-  programs.vscode = {
+  config = lib.mkIf (!config.custom.minimalBuild.enable) {
+    programs.vscode = {
     enable = true;
     mutableExtensionsDir = false;
 
@@ -119,10 +119,10 @@ in
       ];
 
     };
-  };
+    };
 
 
-  home.activation.vscodeMutableSettings = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    home.activation.vscodeMutableSettings = lib.hm.dag.entryAfter ["writeBoundary"] ''
     target="$HOME/.config/Code/User/settings.json"
     if [ -L "$target" ]; then
       real=$(readlink -f "$target")
@@ -130,7 +130,8 @@ in
       cp "$real" "$target"
       chmod u+w "$target"
     fi
-  '';  
+    '';  
 
-  home.file."${config.xdg.configHome}/Code/User/settings.json".force = true;
+    home.file."${config.xdg.configHome}/Code/User/settings.json".force = true;
+  };
 }

@@ -1,73 +1,79 @@
 { inputs, config, lib, pkgs, ...}:
 
 {
-  programs.fish.enable = true;
-
-  # Nix builder
-  programs.nh = {
-    enable = true;
-    flake = "/home/rares/dotfiles-nix";
-    clean = {
-      enable = true;
-      extraArgs = "--keep-since 4d --keep 3";
-    };
+  options.custom.minimalBuild.enable = lib.mkEnableOption "minimal system build for low-space rebuilds" // {
+    default = false;
   };
 
-  # Flatpak
-  services.flatpak.enable = true;
+  config = {
+    programs.fish.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    # Core
-    vim
-    wget
+  # Nix builder
+    programs.nh = {
+      enable = true;
+      flake = "/home/rares/dotfiles-nix";
+      clean = {
+        enable = true;
+        extraArgs = "--keep-since 4d --keep 3";
+      };
+    };
 
-    # Wm
-    waybar
-    hyprlock
-    hyprlauncher
+    # Flatpak
+    services.flatpak.enable = true;
 
-    # Screenshot
-    grim
-    slurp
+    environment.systemPackages = with pkgs; [
+      # Core
+      vim
+      wget
 
-    # Functionalities
-    wl-clipboard
-    brightnessctl
-    usbutils
+      # Wm
+      waybar
+      hyprlock
+      hyprlauncher
 
-    # Media
-    pkgs.mpv
-    pkgs.mpvpaper
-    pkgs.feh
-    imlib2
+      # Screenshot
+      grim
+      slurp
 
-    # Utils
-    ffmpeg
-    libva-utils
-    vdpauinfo
-    pkgs.onlyoffice-desktopeditors
+      # Functionalities
+      wl-clipboard
+      brightnessctl
+      usbutils
 
-    # Files
-    thunar
-    thunar-archive-plugin
-    tumbler
-    ffmpegthumbnailer
+      # Media
+      pkgs.mpv
+      pkgs.mpvpaper
+      pkgs.feh
+      imlib2
 
-    # Archive
-    zip
-    unzip
-    p7zip
+      # Utils
+      ffmpeg
+      libva-utils
+      vdpauinfo
+      pkgs.onlyoffice-desktopeditors
 
-    # Gpu
-    nvtopPackages.nvidia
-    mesa-demos
-    vulkan-tools
+      # Files
+      thunar
+      thunar-archive-plugin
+      tumbler
+      ffmpegthumbnailer
 
-    # Spotify player
-    inputs.spotatui.packages.${pkgs.stdenv.hostPlatform.system}.default
+      # Archive
+      zip
+      unzip
+      p7zip
 
-    # Connection
-    picocom
-  ];
+      # Gpu
+      nvtopPackages.nvidia
+      mesa-demos
+      vulkan-tools
+
+      # Connection
+      picocom
+    ] ++ lib.optionals (!config.custom.minimalBuild.enable) [
+      # Heavy imported package; excluded in minimal build.
+      inputs.spotatui.packages.${pkgs.stdenv.hostPlatform.system}.default
+    ];
+  };
 
 } 

@@ -5,7 +5,7 @@
     default = true;
   };
 
-  config = lib.mkIf config.custom.stm32.enable {
+  config = lib.mkIf (config.custom.stm32.enable && !config.custom.minimalBuild.enable) {
     home.packages = [
       (pkgs.callPackage ./stm32cubeprog.nix {})
       (pkgs.callPackage ./stm32cubemx.nix {})
