@@ -38,6 +38,9 @@
       url = "github:LargeModGames/spotatui";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # gaming packages
+    nix-gaming.url = "github:fufexan/nix-gaming";
 	};
 
 	outputs = inputs@{ self, nixpkgs, home-manager, ... } :

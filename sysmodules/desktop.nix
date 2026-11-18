@@ -1,7 +1,11 @@
 { config, lib, pkgs, inputs, ...}:
 
 {
-  imports = [ inputs.noctalia-greeter.nixosModules.default ];
+  imports = [
+    inputs.noctalia-greeter.nixosModules.default
+    inputs.nix-gaming.nixosModules.platformOptimizations
+    inputs.nix-gaming.nixosModules.pipewireLowLatency
+  ];
 
   # Hyrpland
   programs.hyprland = {
@@ -44,8 +48,15 @@
   programs.steam = {
     enable = true;
     gamescopeSession.enable = true;
+    platformOptimizations.enable = true;
   };
   programs.gamemode.enable = true;
+
+  services.pipewire.lowLatency = {
+    enable = true;
+    quantum = 128;
+    rate = 48000;
+  };
 
   # Fonts
   fonts.packages = with pkgs; [
