@@ -72,6 +72,14 @@ in
       "telemetry.telemetryLevel" = "off";
       "workbench.startupEditor" = "none";
       "workbench.colorTheme" = "Tokyo Night";
+      "terminal.integrated.defaultProfile.linux" = "zsh";
+      "terminal.integrated.profiles.linux" = {
+        zsh = {
+          path = "${pkgs.zsh}/bin/zsh";
+          args = [ "-l" ];
+          icon = "terminal-bash";
+        };
+      };
 
       # cppincludeguard extension
       "C/C++ Include Guard.Prefix" = "_";

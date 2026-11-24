@@ -39,7 +39,7 @@
     packages = with pkgs; [
       tree
     ];
-    shell = pkgs.fish;
+    shell = pkgs.zsh;
   };
 
   # Build dir
@@ -49,8 +49,6 @@
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;
-    substituters = [ "https://nix-gaming.cachix.org" ];
-    trusted-public-keys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" ];
 
     # If free space drops under min-free, Nix GC runs until max-free is reached.
     min-free = 5 * 1024 * 1024 * 1024;

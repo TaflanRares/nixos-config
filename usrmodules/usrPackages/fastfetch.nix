@@ -1,18 +1,5 @@
-{ config, pkgs, ... }:
+{ ... }:
 
-let
-  greenPrimary = "9ECE9A";
-  greenDark    = "74A57f";
-  greenJungle  = "3DAC73";
-  greenSea     = "10926D";
-
-  cBorder  = "{##${greenJungle}}";
-  cSysInfo = "{##${greenDark}}";
-  cDesktop = "{##${greenSea}}";
-  cHardware= "{##${greenPrimary}}";
-  cIcons   = "{##${greenSea}}";
-  cReset   = "{#}";
-in
 {
   programs.fastfetch = {
     enable = true;
@@ -23,191 +10,114 @@ in
 
       logo = {
         type = "data";
-        color = {
-          "1" = "38;2;158;206;154";
-          "2" = "38;2;100;100;100"; 
-        };
-        source = ''
-                                                     ___
-                                                  ,o88888
-                                               ,o8888888'
-                         ,:o:o:oooo.        ,8O88Pd8888"
-                     ,.::.::o:ooooOoOoO. ,oO8O8Pd888'"
-                   ,.:.::o:ooOoOoOO8O8OOo.8OOPd8O8O"
-                  , ..:.::o:ooOoOOOO8OOOOo.FdO8O8"
-                 , ..:.::o:ooOoOO8O888O8O,COCOO"
-                , . ..:.::o:ooOoOOOO8OOOOCOCO"
-                 . ..:.::o:ooOoOoOO8O8OCCCC"o
-                    . ..:.::o:ooooOoCoCCC"o:o
-                    . ..:.::o:o:,cooooCo"oo:o:
-                 `   . . ..:.:cocoooo"'o:o:::'
-                 .`   . ..::ccccoc"'o:o:o:::'
-                :.:.    ,c:cccc"':.:.:.:.:.'
-              ..:.:"'`::::c:"'..:.:.:.:.:.'
-            ...:.'.:.::::"'    . . . . .'
-           .. . ....:."' `   .  . . '
-         . . . ...."'
-         .. . ."' 
-        .
-        '';
+        source = builtins.readFile ../../config/fastfetch1.txt;
 
         padding = {
-          top = 1;
+          top = 0;
           left = 1;
           right = 1;
         };
       };
 
       display = {
-        separator = " ";
+        separator = "  ";
 
         color = {
-          keys = "38;2;228;197;175;";
-          title = "38;61;172;115;";
-          output = "white";
-          separator = "green";
+          keys = "38;2;255;85;85";
+          output = "38;2;255;255;255";
+          separator = "38;2;170;170;170";
         };
 
         key = {
-          width = 18;
+          width = 12;
           type = "string";
         };
       };
 
       modules = [
-        # Header
-        /*
-        {
-          type = "title";
-          format = "${cBorder}╭─ ${cReset}{user-name-colored}${cBorder}@${cHardware}{host-name} ";
-        }
+        # Offset info down so it appears centered relative to tall logo.
         "break"
-        */
-        # System Information
-        {
-          type = "custom";
-          format = "${cBorder}╭──── ${cSysInfo}SY${cBorder} ────╮${cReset}";
-        }
+        "break"
+        "break"
+        "break"
+        "break"
+        "break"
+        "break"
+        "break"
+        "break"
+        "break"
+        "break"
+        "break"
+
         {
           type = "os";
-          key = "${cBorder}│ ${cSysInfo}󰍹 OS       ${cBorder}│${cReset}";
+          key = "OS";
           format = "{pretty-name}";
         }
         {
+          type = "host";
+          key = "Host";
+        }
+        {
           type = "kernel";
-          key = "${cBorder}│ ${cSysInfo}󰒋 Kernel   ${cBorder}│${cReset}";
+          key = "Kernel";
           format = "{release}";
         }
         {
           type = "uptime";
-          key = "${cBorder}│ ${cSysInfo}󰅐 Uptime   ${cBorder}│${cReset}";
+          key = "Uptime";
         }
-        {
-          type = "packages";
-          key = "${cBorder}│ ${cSysInfo}󰏖 Packages ${cBorder}│${cReset}";
-          format = "{all}";
-        }
-        {
-          type = "custom";
-          format = "${cBorder}╰────────────╯${cReset}";
-        }
-
         "break"
-
-        # Desktop Environment
-        {
-          type = "custom";
-          format = "${cBorder}╭──── ${cDesktop}DE${cBorder} ────╮${cReset}";
-        }
         {
           type = "de";
-          key = "${cBorder}│ ${cIcons}󰧨 DE       ${cBorder}│${cReset}";
+          key = "DE";
           format = "{pretty-name}";
         }
         {
           type = "wm";
-          key = "${cBorder}│ ${cIcons}󱂬 WM       ${cBorder}│${cReset}";
+          key = "WM";
           format = "{pretty-name}";
         }
         {
-          type = "wmtheme";
-          key = "${cBorder}│ ${cIcons}󰉼 Theme    ${cBorder}│${cReset}";
-        }
-        {
-          type = "monitor";
-          key = "${cBorder}│ ${cIcons}󰹑 Display  ${cBorder}│${cReset}";
-          format = "{width}x{height} @ {refresh-rate}Hz";
-        }
-        {
           type = "shell";
-          key = "${cBorder}│ ${cIcons}󰞷 Shell    ${cBorder}│${cReset}";
+          key = "Shell";
           format = "{pretty-name}";
         }
         {
           type = "terminal";
-          key = "${cBorder}│ ${cIcons}󰞍 Terminal ${cBorder}│${cReset}";
+          key = "Terminal";
           format = "{pretty-name}";
         }
-        {
-          type = "terminalfont";
-          key = "${cBorder}│ ${cIcons}󰛖 Font     ${cBorder}│${cReset}";
-        }
-        {
-          type = "custom";
-          format = "${cBorder}╰────────────╯${cReset}";
-        }
-
-        "break"
-
-        # Hardware Information
-        {
-          type = "custom";
-          format = "${cBorder}╭──── ${cHardware}HW${cBorder} ────╮${cReset}";
-        }
+        "brake"
         {
           type = "cpu";
-          key = "${cBorder}│ ${cHardware}󰻠 CPU    ${cBorder}  │${cReset}";
+          key = "CPU";
           format = "{1}";
         }
         {
-          type = "gpu";
-          key = "${cBorder}│ ${cHardware}󰢮 GPU    ${cBorder}  │${cReset}";
-          format = "{name}";
-        }
-        {
           type = "memory";
-          key = "${cBorder}│ ${cHardware}󰍛 Memory ${cBorder}  │${cReset}";
+          key = "Memory";
         }
         {
           type = "disk";
-          key = "${cBorder}│ ${cHardware}󰋊 Root   ${cBorder}  │${cReset}";
+          key = "Root";
           folders = "/";
           stat = "fast";
           format = "{size-used} / {size-total} ({size-percentage})";
         }
         {
           type = "disk";
-          key = "${cBorder}│ ${cHardware}󰋊 Home   ${cBorder}  │${cReset}";
+          key = "Home";
           folders = "/home";
           stat = "fast";
           format = "{size-used} / {size-total} ({size-percentage})";
         }
-        {
-          type = "custom";
-          format = "${cBorder}╰────────────╯${cReset}";
-        }
-
         "break"
-
-        # Colors
-        /*
         {
           type = "colors";
-          key = "${cBorder}  ";
+          key = "  ";
           symbol = "circle";
-          paddingLeft = 4;
         }
-        */
       ];
     };
   };

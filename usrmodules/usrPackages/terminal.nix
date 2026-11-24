@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
-  # Kitty and fish
+  # Terminal + shell
   programs.kitty = {
     enable = true;
     settings = {
@@ -19,40 +19,40 @@
       cursor_blink_interval = 0;
     };
 
-    shellIntegration.enableFishIntegration = true;
+    shellIntegration.enableZshIntegration = true;
   };
 
-  programs.fish = {
+  programs.zsh = {
     enable = true;
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
 
-    interactiveShellInit = ''
-      # Greet w fastfetch
-      set -g fish_greeting ""
-      if test "$TERM_PROGRAM" != "vscode"
-        fastfetch
-      end
+    initContent = ''
+      # Bash-style completion compatibility.
+      autoload -U +X bashcompinit && bashcompinit
+
+      # Completion UI
+      zstyle ':completion:*' menu select
+      zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+      # Prompt with PWD segment + separator.
+      PROMPT='%K{#99ffcc}%F{#000000}%B %~ %b%f%k%F{#99ffcc} %f'
     '';
-
-    functions = {
-      fish_prompt = ''
-        # pwd, white background 
-        set_color -b 99ffcc 000000 -o
-        echo -n ' '
-        echo -n (prompt_pwd)
-        echo -n ' '
-
-        # right arrow
-        set_color -b normal 99ffcc
-        echo -n " "
-
-        # reset text color
-        set_color normal
-      '';
-    };
 
     shellAliases = {
       icat = "kitty +kitten icat";
     };
+  };
+
+  xdg.desktopEntries.zsh = {
+    name = "Zsh";
+    genericName = "Shell";
+    comment = "Open Zsh in Kitty";
+    exec = "kitty -e zsh";
+    icon = "utilities-terminal";
+    terminal = false;
+    categories = [ "System" "Utility" "TerminalEmulator" ];
   };
 
   # Git
@@ -78,13 +78,13 @@
     ];
   };
 
-  # Git dif
+  # Git diff
   programs.delta = {
     enable = true;
     enableGitIntegration = true;
   };
 
-  # Git tli
+  # Git TUI
   programs.lazygit = {
     enable = true;
     settings.git.pagers = [
