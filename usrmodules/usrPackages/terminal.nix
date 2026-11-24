@@ -2,24 +2,75 @@
 
 {
   # Terminal + shell
-  programs.kitty = {
+  programs.alacritty = {
     enable = true;
     settings = {
-      font_family = "JetBrainsMono Nerd Font";
-      font_size = 12;
+      window.opacity = 0.78;
 
-      copy_on_select = "yes";
-      click_url_on_modifier = "ctrl";
-      url_style = "curly";
+      colors = {
+        primary = {
+          background = "0x050505";
+          foreground = "0xe6edf3";
+        };
 
-      background_opacity = "0.85";
-      dynamic_background_opacity = "yes";
+        normal = {
+          black = "0x1b1f2a";
+          red = "0xff6b6b";
+          green = "0x7ee787";
+          yellow = "0xf2cc60";
+          blue = "0x79c0ff";
+          magenta = "0xd2a8ff";
+          cyan = "0x56d4dd";
+          white = "0xc9d1d9";
+        };
 
-      cursor_shape = "beam";
-      cursor_blink_interval = 0;
+        bright = {
+          black = "0x4b5563";
+          red = "0xff7b72";
+          green = "0x8ddb8c";
+          yellow = "0xffd866";
+          blue = "0x8cc8ff";
+          magenta = "0xe2b5ff";
+          cyan = "0x6fe3ea";
+          white = "0xf0f6fc";
+        };
+      };
+
+      font = {
+        normal.family = "JetBrainsMono Nerd Font";
+        size = 12;
+      };
+
+      selection.save_to_clipboard = true;
+
+      keyboard.bindings = [
+        # Keep standard terminal shortcuts explicit.
+        { key = "V"; mods = "Control|Shift"; action = "Paste"; }
+        { key = "Insert"; mods = "Shift"; action = "Paste"; }
+        { key = "C"; mods = "Control|Shift"; action = "Copy"; }
+
+        # Convenience: allow Ctrl+V paste directly.
+        { key = "V"; mods = "Control"; action = "Paste"; }
+      ];
+
+      hints.enabled = [
+        {
+          regex = "((https?|ftp|file)://|mailto:)[^[:space:]<>\"`]+";
+          hyperlinks = true;
+          command = "xdg-open";
+          post_processing = true;
+          mouse = {
+            enabled = true;
+            mods = "Control";
+          };
+        }
+      ];
+
+      cursor.style = {
+        shape = "Beam";
+        blinking = "Off";
+      };
     };
-
-    shellIntegration.enableZshIntegration = true;
   };
 
   programs.zsh = {
@@ -40,16 +91,13 @@
       PROMPT='%K{#99ffcc}%F{#000000}%B %~ %b%f%k%F{#99ffcc} %f'
     '';
 
-    shellAliases = {
-      icat = "kitty +kitten icat";
-    };
   };
 
   xdg.desktopEntries.zsh = {
     name = "Zsh";
     genericName = "Shell";
-    comment = "Open Zsh in Kitty";
-    exec = "kitty -e zsh";
+    comment = "Open Zsh in Alacritty";
+    exec = "alacritty -e zsh";
     icon = "utilities-terminal";
     terminal = false;
     categories = [ "System" "Utility" "TerminalEmulator" ];

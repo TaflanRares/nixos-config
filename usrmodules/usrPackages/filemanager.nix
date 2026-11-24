@@ -2,9 +2,9 @@
 
 {
 
-  # Let Exo/Thunar resolve TerminalEmulator to kitty.
+  # Let Exo/Thunar resolve TerminalEmulator to alacritty.
   home.file.".config/xfce4/helpers.rc".text = ''
-    TerminalEmulator=kitty
+    TerminalEmulator=alacritty
     TerminalEmulatorDismissed=true
   '';
 

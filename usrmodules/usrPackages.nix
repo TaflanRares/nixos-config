@@ -24,6 +24,11 @@ in
     # Large imported packages for full profile only.
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
 
+    # Media / chat
+    obs-studio
+    spotify
+    vesktop
+
     # Gaming
     protonup-ng
     mangohud
@@ -40,27 +45,6 @@ in
     sideloadInitLua = true;
     plugins = with pkgs.vimPlugins; [ telescope-nvim plenary-nvim ];
   };
-
-  /*
-  programs.obs-studio = {
-    enable = true;
-
-    # Nvidia hardware acceleration
-    package = (
-      pkgs.obs-studio.override {
-        cudaSupport = true;
-      }
-    );
-
-    plugins = with pkgs.obs-studio-plugins; [
-      wlrobs
-      obs-backgroundremoval
-      obs-pipewire-audio-capture 
-      obs-gstreamer
-      obs-vkcapture
-    ];
-  };
-  */
 
   # Secrets
   programs.keepassxc = {

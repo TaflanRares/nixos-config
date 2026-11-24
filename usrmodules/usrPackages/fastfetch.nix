@@ -28,6 +28,15 @@
           separator = "38;2;170;170;170";
         };
 
+        # Color percentage numbers using the same red/white/gray palette family.
+        percent = {
+          color = {
+            green = "38;2;255;255;255";
+            yellow = "38;2;170;170;170";
+            red = "38;2;255;85;85";
+          };
+        };
+
         key = {
           width = 12;
           type = "string";
@@ -44,19 +53,10 @@
         "break"
         "break"
         "break"
-        "break"
-        "break"
-        "break"
-        "break"
-
         {
           type = "os";
           key = "OS";
           format = "{pretty-name}";
-        }
-        {
-          type = "host";
-          key = "Host";
         }
         {
           type = "kernel";
@@ -88,7 +88,7 @@
           key = "Terminal";
           format = "{pretty-name}";
         }
-        "brake"
+        "break"
         {
           type = "cpu";
           key = "CPU";
@@ -97,12 +97,22 @@
         {
           type = "memory";
           key = "Memory";
+          percent = {
+            green = 50;
+            yellow = 80;
+            type = [ "num" "num-color" ];
+          };
         }
         {
           type = "disk";
           key = "Root";
           folders = "/";
           stat = "fast";
+          percent = {
+            green = 50;
+            yellow = 80;
+            type = [ "num" "num-color" ];
+          };
           format = "{size-used} / {size-total} ({size-percentage})";
         }
         {
@@ -110,6 +120,11 @@
           key = "Home";
           folders = "/home";
           stat = "fast";
+          percent = {
+            green = 50;
+            yellow = 80;
+            type = [ "num" "num-color" ];
+          };
           format = "{size-used} / {size-total} ({size-percentage})";
         }
         "break"

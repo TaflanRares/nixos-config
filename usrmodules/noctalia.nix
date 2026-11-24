@@ -207,7 +207,7 @@
           pinned = [
             "zen-beta"
             "steam"
-            "kitty"
+            "alacritty"
           ];
         };
 

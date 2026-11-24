@@ -33,11 +33,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Spotify CLI
-    spotatui = {
-      url = "github:LargeModGames/spotatui";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 	};
 
 	outputs = inputs@{ self, nixpkgs, home-manager, ... } :

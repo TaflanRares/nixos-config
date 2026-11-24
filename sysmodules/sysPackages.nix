@@ -1,4 +1,4 @@
-{ inputs, config, lib, pkgs, ...}:
+{ config, lib, pkgs, ...}:
 
 {
   options.custom.minimalBuild.enable = lib.mkEnableOption "minimal system build for low-space rebuilds" // {
@@ -70,9 +70,6 @@
 
       # Connection
       picocom
-    ] ++ lib.optionals (!config.custom.minimalBuild.enable) [
-      # Heavy imported package; excluded in minimal build.
-      inputs.spotatui.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
   };
 
